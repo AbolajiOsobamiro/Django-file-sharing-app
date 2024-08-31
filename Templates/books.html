@@ -1,0 +1,94 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'index.css' %}">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books</title>
+</head>
+<body>
+    <header class = "header">
+    <div class = "items-right">
+            <a href="/" class = "head">Home</a>
+
+            <a href="movies.html" class = "head">Movies</a>
+
+            <a href="misc.html" class = "head">Others</a>
+
+        <a href="apps.html" class = "head">Softwares</a>
+
+        <a href="signup.html" class = "head">Register</a>
+
+        {% if user.is_authenticated %}
+        
+            <a href="bookUpload.html" class = "head">Upload Books</a>
+        
+            <a href="bookRequest.html" class = "head">Request Books</a>
+            <a href="/logout" class = "head">Log out</a>
+
+            <a href="" class = "head">Hi {{user.username}}</a>
+        {% else %}
+        <a href="login.html" class = "head">Log in</a>
+        {% endif%}
+        <form action="{% url 'booksearch' %}" method="POST" class = "search-form">
+            {% csrf_token %}
+            
+                <input class="search-bar"  placeholder="Search Books" 
+                type="search" aria-label="Search Books" name="searched">
+        
+                <button class="search-button" type="submit">Search Books</button>
+        </form>
+        
+    </div>
+</header>
+    
+    
+    <h1 class = "intro">Feel free to browse through our collection of e-books. You might find something you like</h1>
+    
+            {% for inst in instance reversed %}
+            <div class = "item-box">
+                    {% if user.is_authenticated %}
+                        {% if inst.image %}
+                        <img src="{{inst.image.url}}" class = "image">
+                        <h3 class = "title">{{inst.title}}</h3>
+                        <a href="{{inst.file.url}}" download="{{inst.file.url}}">
+                            <button class = "download-button">Download!</button>
+                        </a>
+                            {% else %}
+                
+                        
+                        <img src="static/alien.bmp" class = "image">
+                        <h3 class = "title">{{inst.title}}</h3>
+                        <a href="{{inst.file.url}}" download="{{inst.file.url}}">
+                            <button class = "download-button">Download!</button>
+                        </a>
+    
+                            {% endif %}
+                    {% else %}
+                            {% if inst.image %}
+                    
+                        <img src="{{inst.image.url}}" class = "image">
+                        <h3 class = "title">{{inst.title}}</h3>
+                    
+                            {% else %}
+                    
+                        <img src="static/alien.bmp" class = "image">
+                        <h3 class = "title">{{inst.title}}</h3>
+
+                        {% endif %}
+                    {% endif%}
+                    
+            </div>
+            {% endfor %}
+           
+        </table>
+    </div>
+
+<div class = "footer">
+    <h3>Osobamiro Abolaji</h3>
+    <h3>&#169; 2023</h3>
+</div>
+</body>
+</html>

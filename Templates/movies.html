@@ -1,0 +1,101 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'index.css' %}">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies</title>
+</head>
+    <body>
+        <header class = "header">
+            <div class = "items-right">
+                <a href="/" class = "head">Home</a>
+
+                <a href="books.html" class = "head">Books</a>
+
+                <a href="misc.html" class = "head">Others</a>
+
+                <a href="apps.html" class = "head">Softwares</a>
+
+                <a href="requests2.html" class = "head">Pending Requests</a>
+
+                <a href="signup.html" class = "head">Register</a>
+
+        {% if user.is_authenticated %}
+        
+            <a href="movieUpload.html" class = "head">Upload movies</a>
+        
+
+        
+            <a href="movieRequest.html" class = "head">Request movies</a>
+        
+
+            <a href="/logout" class = "head">Log out</a>
+
+            <a href="" class = "head">Hi {{user.username}}</a>
+        {% else %}
+        <th><a href="login.html" class = "head">Log in</a>
+        {% endif%}
+        <form action="{% url 'moviesearch' %}" method="POST" class = "search-form">
+            {% csrf_token %}
+            
+                <input class="search-bar" placeholder="Search Movies" 
+                type="search" aria-label="Search Movies" name="searched">
+            
+
+                <button class="search-button" type="submit">Search Movies</button>
+
+        </form>
+        
+        
+    </div>
+</header>
+    
+    <h1 class = "intro">Feel free to browse through our collection of movies. You might find something you like</h1>
+    <div>
+
+            {% for inst in instance reversed %}
+            <div class = "item-box">
+                
+                    {% if user.is_authenticated %}
+                        {% if inst.image %}
+                        <img src="{{inst.image.url}}" class = "image">
+                        <h3 class = "title">{{inst.title}}</h3>
+                        <a href="{{inst.file.url}}" download="{{inst.file.url}}">
+                            <button class = "download-button">Download!</button>
+                        </a>
+                            {% else %}
+                
+                        
+                        <img src="static/alien.bmp" class = "image">
+                        <h3 class = "title">{{inst.title}}</h3>
+                        <a href="{{inst.file.url}}" download="{{inst.file.url}}">
+                            <button class = "download-button">Download!</button>
+                        </a>
+    
+                            {% endif %}
+                        {% else %}
+                            {% if inst.image %}
+                    
+                        <img src="{{inst.image.url}}" class = "image">
+                        <h3 class = "title">{{inst.title}}</h3>
+                    
+                            {% else %}
+                    
+                        <img src="static/alien.bmp" class = "image">
+                        <h3 class = "title">{{inst.title}}</h3>
+                
+                        {% endif %}
+                    {% endif%}
+                </div>
+                {% endfor %}
+
+    </div>
+    <div class = "footer">
+        <h3>Osobamiro Abolaji</h3>
+        <h3>&#169; 2023</h3>
+    </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'index.css' %}">
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in</title>
+</head>
+<body>
+    <header class="header">
+        <div class="items-right">
+
+                <a href="login.html" class = "head">Login</a>
+
+                <a href="signup.html" class = "head">Register</a>
+        </div>
+    </header>
+    <div class = "signup">
+    <p><h2 class = "heading">Login</h2></p>
+    <style>
+        h3 {
+            color: red;
+        }
+    </style>
+    
+    {% for message in messages %}
+        <h3>{{message}}</h3>
+        {% endfor %}
+    <form method="POST" action="">
+        {% csrf_token %}
+        <div class="form_row">
+            <label class = "title">Username:</label>
+            <br> <br> 
+            <input type="text" name="username" class = "text-box"/>
+        </div> <br>
+        <div class="form_row">
+            <label class = "title">Password: </label>
+            <br> <br>
+            <input type="password" name="password" class = "text-box"/>
+        </div> <br> 
+        
+        <input type="submit" value="Log in" class = "signup-button"/>
+        <p class = "remark">If you do not have an account, consider signing up here. <br> <br>
+            <a href="signup.html"><input type="button" value="Sign Up!" class = "signup-button"></a>
+            </p>
+        </form>
+    </div>
+
+</body>
+</html>

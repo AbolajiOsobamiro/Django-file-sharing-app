@@ -1,0 +1,79 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'index.css' %}">
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Search Results</title>
+</head>
+<body>
+    <header class = "header">
+        <div class = "items-right">
+    <a href="apps.html" class = "head">Back to softwares page</a>
+        </div>
+    </header>
+    
+
+        {% if searched %}
+
+                    
+            {% if instances %}
+                <h1 class = "message">We found {{number}} software(s) containing {{searched}}</h1>
+                    {% for inst in instances reversed %}
+                    <div class = "item-box">
+                        {% if user.is_authenticated %}
+                            {% if inst.image %}
+                            <img src="{{inst.image.url}}" class = "image">
+                            <h3 class = "title">{{inst.title}}</h3>
+                            <a href="{{inst.file.url}}" download="{{inst.file.url}}">
+                                <button class = "download-button">Download!</button>
+                            </a>
+                                {% else %}
+                    
+                            
+                            <img src="static/alien.bmp" class = "image">
+                            <h3 class = "title">{{inst.title}}</h3>
+                            <a href="{{inst.file.url}}" download="{{inst.file.url}}">
+                                <button class = "download-button">Download!</button>
+                            </a>
+        
+                                {% endif %}
+                            {% else %}
+                                {% if inst.image %}
+                        
+                            <img src="{{inst.image.url}}" class = "image">
+                            <h3 class = "title">{{inst.title}}</h3>
+                        
+                                {% else %}
+                        
+                            <img src="static/alien.bmp" class = "image">
+                            <h3 class = "title">{{inst.title}}</h3>
+                            {% endif %}
+                        {% endif%}
+                                    
+                    {% endfor %}
+                    </div>
+                    
+                        
+            {% else %}
+            <div class = "intro">
+                <p align="center">
+                <h3>We found no software(s) containing {{searched}}</h3>
+                <h3>You can check out our other softwares</h3>
+                </p>
+            </div>
+
+            {% endif %}
+
+        {% else %}
+
+        {% endif%}
+
+
+
+
+</body>
+</html>

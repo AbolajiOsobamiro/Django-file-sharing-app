@@ -1,0 +1,122 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'index.css' %}">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pending Requests</title>
+</head>
+<body>
+    <header class = "header">
+        <div class = "items-right">
+            <a href="/" class = "head">Home</a>
+            <a href="books.html" class = "head">Books</a>
+            <a href="movies.html" class = "head">Videos</a>
+            <a href="misc.html" class = "head">Others</a>
+            <a href="apps.html" class = "head">Softwares</a>
+            <a href="signup.html" class = "head">Register</a>
+            {% if user.is_authenticated %}
+            <a href="/logout" class = "head">Log out</a>
+
+            <a href="" class = "head">Hi {{user.username}}</a>
+            {% else %}
+            <th><a href="login.html" class = "head">Log in</a>
+            {% endif%}
+        
+        
+        </div>
+    </header>
+    
+    <h1 class = "intro">These are the requests that have not yet been fulfilled. Please upload if you can!</h1>
+    {% comment %}
+        Books Section
+    {% endcomment %}
+    <div>
+        <h1>Books</h1>
+
+            {% for inst in instance2 reversed %}
+            <div class = "item-box">
+                
+                    <img src="{% static 'alien.bmp' %}" class = "image">
+                    <h3 class = "title">{{inst.requestname}}</h3>
+                
+            </div>
+            {% endfor %}
+    </div>
+    <br>
+
+    {% comment %}
+        Movies Section
+    {% endcomment %}
+    <div>
+        <h1>Movies</h1>
+
+            {% for inst in instance3 reversed %}
+            <div class = "item-box">
+
+                    <img src="{% static 'alien.bmp' %}" class = "image">
+                    <h3 class = "title">{{inst.requestname}}</h3>
+            </div>
+            {% endfor %}
+     
+    </div>
+
+
+    <br>
+
+    {% comment %}
+        Software Section
+    {% endcomment %}
+    <div>
+        <h1>Software</h1>
+        
+            {% for inst in instance1 reversed %}
+            <div class = "item-box">
+                    <img src="{% static 'alien.bmp' %}" class = "image">
+                    <h3 class = "title">{{inst.requestname}}</h3>
+                
+            </div>
+            {% endfor %}
+
+    </div>
+
+
+    <br>
+
+    {% comment %}
+        Misc Section
+    {% endcomment %}
+    <div>
+        <h1>Others</h1>
+            {% for inst in instance4 reversed %}
+            <div class = "item-box">
+                    <img src="{% static 'alien.bmp' %}" class = "image">
+                    <h3 class = "title">{{inst.requestname}}</h3>
+
+            </div>
+            {% endfor %}
+        </table>
+    </div>
+
+
+
+    {% if user.is_authenticated %}
+    <div class = "outro">
+    <h1>You could help offset some of these requests by uploading</h1>
+    
+    <h1>Also, feel free to request for any items not found here already</h1>
+    
+    {% else %}
+    <h1>You could log-in or register to upload or request movies</h1>
+    <a href="login.html">Log in</a>
+    <a href="signup.html">Register</a>
+    {% endif%}
+    </div>
+    <div class = "footer">
+        <h3>Osobamiro Abolaji</h3>
+        <h3>&#169; 2023</h3>
+    </div>
+</body>
+</html>

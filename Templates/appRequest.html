@@ -1,0 +1,58 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'index.css' %}">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Softwares</title>
+</head>
+<body>
+    <header class="header">
+        <div class="items-right">
+                <a href="/" class = "head">Home</a>
+
+
+                <a href="books.html" class = "head">Books</a>
+
+
+                <a href="movies.html" class = "head">Movies</a>
+
+                <a href="apps.html" class = "head">Softwares</a>
+
+                <a href="misc.html" class = "head">Others</a>
+
+
+                <a href="requests2.html" class = "head">Pending Requests</a>
+
+
+                <a href="signup.html" class = "head">Register</a>
+
+            {% if user.is_authenticated %}
+
+                    <a href="appUpload.html" class = "head">Upload Softwares</a>
+
+                <a href="/logout" class = "head">Log out</a>
+
+                <a href="" class = "head">Hi {{user.username}}</a>
+
+            {% else %}
+                    <a href="login.html" class = "head">Log in</a>
+            {% endif%}
+        </div>
+    </header>
+    
+    <div class = "signup">
+        <form action=" " method="POST">
+            {% csrf_token %}
+            <h1 class = "heading">Request Softwares</h1>
+            <div class="form_row">
+                <label class="title">Requestname</label> <br> <br>
+                <input type="text" name="requestname" class="text-box" placeholder="Enter request here">
+            </div> <br>
+            <input type="submit" class = "signup-button"  value="Request">
+        </form>
+    </div>
+</body>
+</html>

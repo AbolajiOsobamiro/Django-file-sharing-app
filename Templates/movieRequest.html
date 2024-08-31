@@ -1,0 +1,57 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'index.css' %}">
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Movies</title>
+</head>
+<body>
+    <header class = "header">
+        <div class = "items-right">
+            <a href="/" class = "head">Home</a>
+
+            <a href="books.html" class = "head">Books</a>
+
+            <a href="movies.html" class = "head">Movies</a>
+
+            <a href="misc.html" class = "head">Others</a>
+
+            <a href="apps.html" class = "head">Softwares</a>
+
+            <a href="requests2.html" class = "head">Pending Requests</a>
+
+            <a href="signup.html" class = "head">Register</a>
+
+    {% if user.is_authenticated %}
+    
+        <a href="movieUpload.html" class = "head">Upload movies</a>
+    
+
+        <a href="/logout" class = "head">Log out</a>
+
+        <a href="" class = "head">Hi {{user.username}}</a>
+    {% else %}
+    <th><a href="login.html" class = "head">Log in</a>
+    {% endif%}
+    </div>
+</header>
+    <center>
+    <h1 class = "intro">Feel free to request any movies here!</h1>
+    <div class = "signup">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <h1 class = "heading">Request movies</h1>
+            <div class="form_row">
+                <label class="title">Requestname</label> <br> <br>
+                <input type="text" name="requestname" class="text-box" placeholder="Enter request here">
+            </div> <br>
+            <input type="submit" value="Request" class = "upload-button">
+        </form>
+    </div>
+    </center>
+</body>
+</html>
